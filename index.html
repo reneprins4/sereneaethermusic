@@ -11,56 +11,26 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-background: #0a0314;
+            --color-background: #05020a; /* Nog donkerder voor meer contrast */
             --color-text: #c9c3d5;
             --color-heading: #ffffff;
-            --color-primary: #d8b4fe;
-            --color-accent: #4338ca;
+            --color-primary: #a78bfa; /* Iets zachter paars */
+            --color-accent: #6d28d9;
         }
 
-        /* A more modern, sophisticated aesthetic for 2025 */
         body {
             font-family: 'Sora', sans-serif;
             background-color: var(--color-background);
             color: var(--color-text);
             scroll-behavior: smooth;
-            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Cdefs%3E%3Cfilter id="f" x="-20%25" y="-20%25" width="140%25" height="140%25"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="4" stitchTiles="stitch"%3E%3C/feTurbulence%3E%3CfeColorMatrix type="saturate" values="0"%3E%3C/feColorMatrix%3E%3C/filter%3E%3C/defs%3E%3Crect width="100%25" height="100%25" filter="url(%23f)" opacity="0.05"%3E%3C/rect%3E%3C/svg%3E');
         }
         .font-heading { font-family: 'DM Serif Display', serif; }
         
-        /* Advanced Hero background */
-        #crystal-hero-canvas {
+        #hero-canvas {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
         }
         .hero-content { position: relative; z-index: 2; }
 
-        /* Card: Redefined with subtle gradients and interactions */
-        .card {
-            background: linear-gradient(145deg, rgba(20, 9, 36, 0.5), rgba(10, 3, 20, 0.5));
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(216, 180, 254, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at 50% 50%, transparent, rgba(67, 56, 202, 0.2));
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        .card:hover {
-            border-color: rgba(216, 180, 254, 0.2);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        .card:hover::before {
-            opacity: 1;
-        }
-
-        /* Button: Elevated primary button style */
         .btn-primary {
             background-color: var(--color-accent);
             color: var(--color-heading);
@@ -68,50 +38,40 @@
             padding: 0.8rem 2.5rem;
             border-radius: 9999px;
             transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(67, 56, 202, 0.5);
+            box-shadow: 0 0 20px rgba(109, 40, 217, 0.4);
         }
         .btn-primary:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 35px rgba(216, 180, 254, 0.5);
-            background-color: #5145e0;
+            box-shadow: 0 0 35px rgba(167, 139, 250, 0.5);
+            background-color: #7c3aed;
         }
 
-        /* Scroll Animation */
+        /* --- Nieuwe Scroll Animaties --- */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
             transition: opacity 1.2s, transform 1.2s;
-            transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+            transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
         }
+        .reveal-up { transform: translateY(60px); }
+        .reveal-left { transform: translateX(-60px); }
+        .reveal-right { transform: translateX(60px); }
+        .reveal-zoom { transform: scale(0.95); }
+
         .reveal.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) translateX(0) scale(1);
         }
         
-        /* Section Title Underline - more subtle */
         .section-title::after {
             content: '';
             display: block;
             width: 60px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+            height: 2px;
+            background-color: var(--color-primary);
             margin: 1.5rem auto 0;
+            opacity: 0.5;
         }
 
-        /* Custom Spotify Player Look */
-        .spotify-player {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            border: 1px solid rgba(216, 180, 254, 0.1);
-            border-radius: 0.5rem;
-            background: rgba(0,0,0,0.2);
-        }
-        .spotify-player img {
-            width: 80px;
-            height: 80px;
-            border-radius: 0.25rem;
-        }
         .spotify-play-btn {
             background-color: #1DB954; /* Spotify Green */
             border-radius: 50%;
@@ -126,64 +86,60 @@
         .spotify-play-btn:hover {
             transform: scale(1.1);
         }
+
+        .album-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .album-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(145deg, rgba(20, 9, 36, 0.2), rgba(10, 3, 20, 0.2));
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(167, 139, 250, 0.1);
+            padding: 2rem;
+            border-radius: 1rem;
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
     <!-- 1. Hero Section -->
-    <header class="h-screen w-full flex items-center p-8 relative overflow-hidden">
-        <div id="crystal-hero-canvas"></div>
-        <div class="hero-content reveal visible container mx-auto">
-            <div class="max-w-2xl text-left">
-                <h1 class="font-heading text-6xl md:text-8xl text-white">Serene Aether</h1>
-                <p class="mt-4 text-xl md:text-2xl text-gray-300 max-w-xl font-light">De Architectuur van Slaap. Wetenschappelijk geconstrueerd voor diepe, herstellende rust.</p>
-                <a href="#introduction" class="mt-8 inline-block btn-primary">Begin de Reis</a>
-            </div>
+    <header class="h-screen w-full flex items-center justify-center p-8 relative overflow-hidden text-center">
+        <div id="hero-canvas"></div>
+        <div class="hero-content reveal reveal-up visible">
+            <h1 class="font-heading text-7xl md:text-9xl text-white">Serene Aether</h1>
+            <p class="mt-4 text-xl md:text-2xl text-gray-300 max-w-2xl font-light mx-auto">De Architectuur van Slaap. Wetenschappelijk geconstrueerd voor diepe, herstellende rust.</p>
+            <a href="#album-midnight-horizons" class="mt-8 inline-block btn-primary">Ontdek de Muziek</a>
         </div>
     </header>
 
     <!-- 2. Video Interlude Section -->
-    <section class="h-[90vh] w-full relative">
+    <section class="h-[90vh] w-full relative reveal reveal-zoom">
         <video autoplay loop muted playsinline class="absolute z-0 w-auto min-w-full min-h-full max-w-none top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <source src="u4542115973_Serene_Aether_a_unique_music_artist_who_creates_c_2f54d571-2604-4f39-9e53-1463102d2657_0.mp4" type="video/mp4">
+            <source src="u45421115973_Serene_Aether_a_unique_music_artist_who_creates_c_2f54d571-2604-4f39-9e53-1463102d2657_0.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <div class="absolute inset-0 bg-black/50"></div> <!-- Slightly less dark overlay -->
+        <div class="absolute inset-0 bg-black/60"></div>
     </section>
 
-    <!-- 3. The Sonic Promise -->
-    <section id="introduction" class="reveal text-center py-28 md:py-40">
-        <div class="container mx-auto px-8">
-            <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Sonische Belofte</h2>
-            <p class="mt-12 text-lg text-gray-300 leading-relaxed max-w-4xl mx-auto">
-                Dit is geen muziek. Het is een akoestisch instrument, ontworpen om de architectuur van uw geest te hervormen voor optimale rust. Elke compositie is een sleutel, gesmeed met neurowetenschappelijke precisie, om de poorten naar diepe slaap te openen.
-            </p>
-        </div>
-    </section>
-
-    <main class="space-y-28 md:space-y-40 my-28">
+    <main class="py-28 md:py-40">
         
-        <!-- 4. New Album: Midnight Horizons (Apple Style) -->
-        <section id="album-midnight-horizons" class="reveal">
+        <!-- 3. Album: Midnight Horizons -->
+        <section id="album-midnight-horizons">
             <div class="container mx-auto px-8">
                 <div class="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center w-full">
-                    <div class="text-center lg:text-left">
+                    <div class="text-center lg:text-left reveal reveal-left">
                         <span class="font-semibold text-sm tracking-widest text-purple-300">NIEUWSTE ALBUM</span>
                         <h3 class="font-heading text-6xl md:text-7xl text-white mt-4">Midnight Horizons</h3>
                         <p class="mt-6 text-gray-300 text-lg leading-relaxed max-w-lg mx-auto lg:mx-0">Een dromerige, fluitachtige synth die als een sonische mist door elk nummer zweeft, ontworpen om de geest te omhullen.</p>
-                        
-                        <div class="mt-10 spotify-player max-w-sm mx-auto lg:mx-0">
-                            <img src="https://placehold.co/160x160/0a0314/d8b4fe?text=MH" alt="Album Art 'Midnight Horizons'">
-                            <div class="mx-4 flex-grow">
-                                <p class="font-semibold text-white">Midnight Horizons</p>
-                                <p class="text-sm text-gray-400">Serene Aether</p>
-                            </div>
-                            <a href="https://open.spotify.com/" target="_blank" class="spotify-play-btn" aria-label="Play on Spotify">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg>
-                            </a>
-                        </div>
+                        <a href="https://open.spotify.com/" target="_blank" class="mt-10 inline-block btn-primary" aria-label="Play Midnight Horizons on Spotify">
+                            Luister op Spotify
+                        </a>
                     </div>
-                    <div class="aspect-square rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/20">
+                    <div class="album-card aspect-square rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10 reveal reveal-right">
                         <video autoplay loop muted playsinline class="w-full h-full object-cover">
                             <source src="social_u4542115973_httpss.mj.run1guus5STBnY_--ar_11_--bs_1_--video_1_cf306e53-e419-4c8a-98e5-98beedecace3_0.mp4" type="video/mp4">
                             Your browser does not support the video tag.
@@ -193,80 +149,102 @@
             </div>
         </section>
 
-        <!-- 5. Second Album: Obsidian Fields (Apple Style) -->
-        <section id="album-obsidian-fields" class="reveal">
+        <!-- 4. Album: Whispers of Mist -->
+        <section id="album-whispers-of-mist" class="mt-28 md:mt-40">
              <div class="container mx-auto px-8">
                 <div class="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center w-full">
-                    <div class="aspect-square rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/20 lg:order-first">
-                       <div id="track-two-visualizer" class="w-full h-full"></div>
+                    <div class="album-card aspect-square rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10 lg:order-first reveal reveal-left">
+                       <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                            <source src="u4542115973_httpss.mj.runpplLoxcu1No_--ar_11_--bs_1_--video_1_f3e50e45-cd50-4c8d-9bcc-0dadd0130d78_0.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
-                    <div class="text-center lg:text-left lg:order-last">
-                        <span class="font-semibold text-sm tracking-widest text-purple-300">UIT DE COLLECTIE</span>
-                        <h3 class="font-heading text-6xl md:text-7xl text-white mt-4">Obsidian Fields</h3>
-                        <p class="mt-6 text-gray-300 text-lg leading-relaxed max-w-lg mx-auto lg:mx-0">Een sonische reis door een eindeloos, glad landschap om de cyclus van overdenken te doorbreken.</p>
-                        
-                        <div class="mt-10 spotify-player max-w-sm mx-auto lg:mx-0">
-                            <img src="https://placehold.co/160x160/0a0314/d8b4fe?text=SA" alt="Album Art 'Obsidian Fields'">
-                            <div class="mx-4 flex-grow">
-                                <p class="font-semibold text-white">Obsidian Fields</p>
-                                <p class="text-sm text-gray-400">Serene Aether</p>
-                            </div>
-                             <a href="https://open.spotify.com/" target="_blank" class="spotify-play-btn" aria-label="Play on Spotify">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg>
-                            </a>
-                        </div>
+                    <div class="text-center lg:text-left lg:order-last reveal reveal-right">
+                        <span class="font-semibold text-sm tracking-widest text-purple-300">NIEUW ALBUM</span>
+                        <h3 class="font-heading text-6xl md:text-7xl text-white mt-4">Whispers of Mist</h3>
+                        <p class="mt-6 text-gray-300 text-lg leading-relaxed max-w-lg mx-auto lg:mx-0">Het terugkerende element is een fluisterende, mistachtige pad/synth die de luisteraar omhult.</p>
+                        <a href="https://open.spotify.com/" target="_blank" class="mt-10 inline-block btn-primary" aria-label="Play Whispers of Mist on Spotify">
+                           Luister op Spotify
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 6. The Science of Silence -->
-        <section class="reveal">
+        <!-- 5. NIEUW: Luisteraars Vertellen -->
+        <section class="reveal reveal-up mt-28 md:mt-40">
             <div class="container mx-auto px-8 text-center">
-                <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Wetenschap van Geluid</h2>
-                <div class="mt-12 grid md:grid-cols-3 gap-8">
-                    <div class="card rounded-lg p-8">
-                        <h3 class="font-heading text-3xl text-white">Veranker het Lichaam</h3>
-                        <p class="mt-4 text-gray-400">Sub-bas frequenties (onder 60Hz) synchroniseren met de natuurlijke resonantie van het lichaam, wat een diep gevoel van fysieke aarding en ontspanning teweegbrengt.</p>
+                <h2 class="font-heading text-5xl md:text-6xl text-white section-title">Luisteraars Vertellen</h2>
+                <div class="mt-16 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div class="testimonial-card">
+                        <p class="text-gray-300 italic">"Voor het eerst in jaren slaap ik de hele nacht door. Deze muziek is geen achtergrondgeluid, het is een instrument voor rust."</p>
+                        <p class="mt-4 font-semibold text-purple-300">- J. de Vries</p>
                     </div>
-                    <div class="card rounded-lg p-8">
-                        <h3 class="font-heading text-3xl text-white">Synchroniseer de Geest</h3>
-                        <p class="mt-4 text-gray-400">Delta-golf (1-4Hz) binaural beats begeleiden de hersenactiviteit zachtjes naar de non-REM slaapfase, essentieel voor fysiek en mentaal herstel.</p>
+                    <div class="testimonial-card">
+                        <p class="text-gray-300 italic">"De mistachtige klanken helpen mijn race-gedachten te kalmeren. Ik val sneller en dieper in slaap dan ooit tevoren."</p>
+                        <p class="mt-4 font-semibold text-purple-300">- L. Meijer</p>
                     </div>
-                    <div class="card rounded-lg p-8">
-                        <h3 class="font-heading text-3xl text-white">Harmoniseer de Emotie</h3>
-                        <p class="mt-4 text-gray-400">Stemming op 432Hz, een frequentie die mathematisch consistent is met de patronen van het universum, vermindert angst en bevordert emotioneel evenwicht.</p>
+                    <div class="testimonial-card">
+                        <p class="text-gray-300 italic">"Alsof mijn brein een 'reset' knop krijgt. Ik word helderder en meer uitgerust wakker. Onmisbaar geworden."</p>
+                        <p class="mt-4 font-semibold text-purple-300">- A. Janssen</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 7. The Listening Experience -->
-        <section class="reveal text-center">
-             <div class="container mx-auto px-8">
-                <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Luisterervaring</h2>
-                <div class="mt-12 grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
-                    <div>
-                        <h3 class="font-heading text-3xl text-white">Creëer een Heiligdom</h3>
-                        <p class="text-gray-400 mt-2">Minimaliseer licht en geluid. Uw slaapkamer wordt een akoestische kamer voor de geest.</p>
+        <!-- 6. The Science - Apple Inspired -->
+        <section class="reveal reveal-up mt-28 md:mt-40">
+            <div class="container mx-auto px-8 text-center">
+                <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Architectuur van Geluid</h2>
+                <div class="mt-16 grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                    <div class="text-center">
+                         <svg class="h-12 w-12 mx-auto text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V4m0 16v-2M8 8l-2-2m10 0l2-2m-2 10l2 2m-10 0l-2 2"></path></svg>
+                        <h3 class="font-heading text-3xl text-white mt-6">Aarden & Verankeren</h3>
+                        <p class="mt-2 text-gray-400">Diepe sub-bas frequenties synchroniseren met het lichaam voor een diep gevoel van rust en stabiliteit.</p>
                     </div>
-                    <div>
-                        <h3 class="font-heading text-3xl text-white">Volledige Immersie</h3>
-                        <p class="text-gray-400 mt-2">Een hoofdtelefoon is essentieel. Het isoleert en levert de binaural frequenties direct aan de hersenen.</p>
+                    <div class="text-center">
+                        <svg class="h-12 w-12 mx-auto text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 6l12-3"></path></svg>
+                        <h3 class="font-heading text-3xl text-white mt-6">Geest Synchroniseren</h3>
+                        <p class="mt-2 text-gray-400">Binaural beats begeleiden de hersengolven zachtjes naar de herstellende Delta-slaapfase.</p>
                     </div>
-                    <div>
-                        <h3 class="font-heading text-3xl text-white">Geef u Over</h3>
-                        <p class="text-gray-400 mt-2">Observeer de klanken zonder analyse. Laat het geluid zijn werk doen. Uw enige taak is ademen.</p>
+                    <div class="text-center">
+                        <svg class="h-12 w-12 mx-auto text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        <h3 class="font-heading text-3xl text-white mt-6">Emotie Harmoniseren</h3>
+                        <p class="mt-2 text-gray-400">Een stemming op 432Hz, consistent met natuurlijke patronen, vermindert angst en bevordert balans.</p>
                     </div>
                 </div>
             </div>
         </section>
-        
+
+        <!-- 7. NIEUW: De Optimale Luisterervaring -->
+        <section class="reveal reveal-up mt-28 md:mt-40">
+            <div class="container mx-auto px-8 text-center">
+                <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Optimale Luisterervaring</h2>
+                <div class="mt-16 grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                    <div class="text-center">
+                        <svg class="h-12 w-12 mx-auto text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                        <h3 class="font-heading text-3xl text-white mt-6">Volledige Immersie</h3>
+                        <p class="mt-2 text-gray-400">Een goede koptelefoon is essentieel. Het levert de binaural beats direct en isoleert u van extern geluid.</p>
+                    </div>
+                    <div class="text-center">
+                        <svg class="h-12 w-12 mx-auto text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <h3 class="font-heading text-3xl text-white mt-6">Creëer een Heiligdom</h3>
+                        <p class="mt-2 text-gray-400">Minimaliseer licht en andere afleidingen. Maak van uw slaapkamer een toevluchtsoord voor de geest.</p>
+                    </div>
+                    <div class="text-center">
+                        <svg class="h-12 w-12 mx-auto text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path></svg>
+                        <h3 class="font-heading text-3xl text-white mt-6">Geef u Over</h3>
+                        <p class="mt-2 text-gray-400">Observeer de klanken zonder te analyseren. Uw enige taak is ademen en het geluid zijn werk laten doen.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- 8. The Architect -->
-        <section class="reveal text-center">
+        <section class="reveal reveal-up mt-28 md:mt-40 text-center">
              <div class="container mx-auto px-8">
                 <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Architect</h2>
-                 <div class="mt-12 max-w-4xl mx-auto">
+                 <div class="mt-16 max-w-4xl mx-auto">
                     <p class="text-gray-300 text-lg leading-relaxed">
                         Serene Aether is de anonieme architect achter deze sonische structuren. Gedreven door de overtuiging dat onze interne wereld net zo zorgvuldig ontworpen kan worden als onze externe, combineert Aether een diepe kennis van psychoakoestiek met een minimalistische esthetiek. Het doel: functionele kunst creëren die dient als een toevluchtsoord in een wereld van ruis.
                     </p>
@@ -275,9 +253,9 @@
         </section>
 
         <!-- 9. Join the Silence -->
-        <section class="reveal">
+        <section class="reveal reveal-up mt-28 md:mt-40">
             <div class="container mx-auto px-8">
-                <div class="card rounded-xl p-8 md:p-12 text-center max-w-3xl mx-auto">
+                <div class="bg-gradient-to-br from-purple-900/50 to-indigo-900/50 rounded-2xl p-8 md:p-12 text-center max-w-3xl mx-auto">
                     <h2 class="font-heading text-4xl text-white">Sluit je aan bij de Stilte</h2>
                     <p class="mt-4 text-gray-400">Ontvang een maandelijkse sonische blauwdruk en inzichten in de architectuur van geluid, exclusief voor abonnees.</p>
                     <form class="mt-8 flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
@@ -289,7 +267,7 @@
         </section>
 
         <!-- 10. Footer -->
-        <footer class="text-center py-16 border-t border-purple-900/20 mt-28">
+        <footer class="text-center py-16 border-t border-purple-900/20 mt-28 md:mt-40">
             <a href="https://open.spotify.com/" target="_blank" class="inline-block mb-8 text-gray-400 hover:text-white transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
                   <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.654 12.338a.5.5 0 0 1-.696.166c-1.878-1.147-4.243-1.407-7.028-.77a.5.5 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .176.696m.952-2.176a.65.65 0 0 1-.806.206c-2.16-1.32-5.114-1.667-7.965-.914a.65.65 0 0 1-.362-1.215c3.15-.81 6.315-.42 8.777 1.04a.65.65 0 0 1 .206.806m.93-2.217a.8.8 0 0 1-1.01.255c-2.52-1.53-6.28-1.9-8.886-.983a.8.8 0 0 1-.446-1.483c2.982-1.01 7.082-.53 9.923 1.25a.8.8 0 0 1 .255 1.01"/>
@@ -308,13 +286,18 @@
                 entry.target.classList.add('visible');
             }
         });
-    }, { threshold: 0.15 });
-    revealElements.forEach(el => observer.observe(el));
+    }, { threshold: 0.15 }); // Iets hogere threshold voor betere timing
+    revealElements.forEach(el => {
+        // Voeg basis animatie class toe
+        if(!el.classList.contains('reveal-left') && !el.classList.contains('reveal-right') && !el.classList.contains('reveal-zoom')) {
+            el.classList.add('reveal-up');
+        }
+        observer.observe(el)
+    });
 
     // --- Three.js Logic ---
-    // Hero Canvas
     function initHeroCanvas() {
-        const container = document.getElementById('crystal-hero-canvas');
+        const container = document.getElementById('hero-canvas');
         if (!container) return;
         
         const scene = new THREE.Scene();
@@ -325,36 +308,23 @@
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(container.offsetWidth, container.offsetHeight);
         container.appendChild(renderer.domElement);
-
-        const geometry = new THREE.TorusKnotGeometry(1.5, 0.4, 200, 20);
-        const material = new THREE.MeshStandardMaterial({
-            color: 0xd8b4fe,
-            transparent: true,
-            opacity: 0.8,
-            wireframe: true,
-            roughness: 0.1,
-            metalness: 0.9
-        });
-        const crystal = new THREE.Mesh(geometry, material);
-        scene.add(crystal);
         
-        // Add subtle particles
         const particlesGeometry = new THREE.BufferGeometry;
-        const particlesCnt = 5000;
+        const particlesCnt = 7000;
         const posArray = new Float32Array(particlesCnt * 3);
         for(let i=0; i < particlesCnt * 3; i++) {
             posArray[i] = (Math.random() - 0.5) * 15;
         }
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const particlesMaterial = new THREE.PointsMaterial({ size: 0.005, color: 0xd8b4fe });
+        const particlesMaterial = new THREE.PointsMaterial({ 
+            size: 0.008, 
+            color: 0xa78bfa,
+            transparent: true,
+            opacity: 0.5,
+            blending: THREE.AdditiveBlending
+        });
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
-
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
-        scene.add(ambientLight);
-        const pointLight = new THREE.PointLight(0xd8b4fe, 2, 20);
-        pointLight.position.set(5, 5, 5);
-        scene.add(pointLight);
 
         window.addEventListener("resize", () => {
             camera.aspect = container.offsetWidth / container.offsetHeight;
@@ -365,69 +335,19 @@
         const clock = new THREE.Clock();
         function animate() {
             const elapsedTime = clock.getElapsedTime();
-            crystal.rotation.y = .2 * elapsedTime;
-            crystal.rotation.x = .1 * elapsedTime;
-            particlesMesh.rotation.y = -.05 * elapsedTime;
+            
+            // Subtle rotation, niet meer afhankelijk van muis
+            particlesMesh.rotation.y = -.03 * elapsedTime;
+            particlesMesh.rotation.x = -.01 * elapsedTime;
+
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
         }
         animate();
     }
     
-    // Abstract visualizers for tracks
-    function initTrackVisualizer(containerId) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
-        camera.position.z = 2;
-        
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(container.offsetWidth, container.offsetHeight);
-        container.appendChild(renderer.domElement);
-        
-        const geometry = new THREE.PlaneGeometry(5, 5, 50, 50);
-        const material = new THREE.MeshStandardMaterial({ 
-            color: 0x4338ca, 
-            wireframe: true,
-            roughness: 0.5,
-        });
-        const plane = new THREE.Mesh(geometry, material);
-        scene.add(plane);
-        
-        const light = new THREE.PointLight(0xd8b4fe, 2, 10);
-        light.position.set(0, 0, 3);
-        scene.add(light);
-        
-        window.addEventListener("resize", () => {
-            camera.aspect = container.offsetWidth / container.offsetHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.offsetWidth, container.offsetHeight);
-        }, false);
-
-        const clock = new THREE.Clock();
-        function animate() {
-            const elapsedTime = clock.getElapsedTime();
-            plane.rotation.z = elapsedTime * 0.1;
-            const positions = plane.geometry.attributes.position.array;
-            for(let i=2; i<positions.length; i+=3) {
-                const x = positions[i-2];
-                const y = positions[i-1];
-                positions[i] = Math.sin(x + elapsedTime * 0.5) * 0.2 + Math.cos(y + elapsedTime * 0.5) * 0.2;
-            }
-            plane.geometry.attributes.position.needsUpdate = true;
-            
-            renderer.render(scene, camera);
-            requestAnimationFrame(animate);
-        }
-        animate();
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
         initHeroCanvas();
-        initTrackVisualizer('track-two-visualizer');
     });
 </script>
 </body>
