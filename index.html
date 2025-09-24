@@ -102,6 +102,26 @@
             padding: 2rem;
             border-radius: 1rem;
         }
+
+        /* --- CSS voor de Parallax Sectie --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95); /* Meer uitgesproken animatie */
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .parallax-card-hidden {
+            opacity: 0;
+            transform: translateY(50px) scale(0.95); /* Meer uitgesproken animatie */
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .parallax-card-animated {
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -161,7 +181,7 @@
                 <div class="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center w-full">
                     <div class="album-card aspect-square rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10 lg:order-first reveal reveal-left">
                        <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                            <source src="u4542115973_httpss.mj.runpplLoxcu1No_--ar_11_--bs_1_--video_1_f3e50e45-cd50-4c8d-9bcc-0dadd0130d78_0.mp4" type="video/mp4">
+                            <source src="u4542115973_httpss.mj.runpplLoxcu1No_--ar_11_--bs_1_--video_1_f3e50e45-cd0-4c8d-9bcc-0dadd0130d78_0.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -177,28 +197,84 @@
             </div>
         </section>
 
-        <!-- 5. NIEUW: Luisteraars Vertellen -->
-        <section class="reveal reveal-up mt-28 md:mt-40">
-            <div class="container mx-auto px-8 text-center">
-                <h2 class="font-heading text-5xl md:text-6xl text-white section-title">Luisteraars Vertellen</h2>
-                <div class="mt-16 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <div class="testimonial-card">
-                        <p class="text-gray-300 italic">"Voor het eerst in jaren slaap ik de hele nacht door. Deze muziek is geen achtergrondgeluid, het is een instrument voor rust."</p>
-                        <p class="mt-4 font-semibold text-purple-300">- J. de Vries</p>
+        <!-- 5. Gecureerde Playlists -->
+        <section id="playlists-section" class="w-full py-20 md:py-32 overflow-hidden mt-28 md:mt-40">
+            <div class="container mx-auto px-4">
+                <div class="relative w-full max-w-6xl mx-auto h-[600px] sm:h-[700px] md:h-[650px]">
+                    
+                    <div class="absolute inset-0 flex items-center justify-center z-10">
+                        <div class="text-center">
+                            <p class="text-lg md:text-xl text-purple-300">Playlists voor Slaap & Focus</p>
+                            <h2 class="font-heading text-5xl md:text-7xl text-white mt-2">
+                                Vind jouw perfecte<br> soundtrack.
+                            </h2>
+                        </div>
                     </div>
-                    <div class="testimonial-card">
-                        <p class="text-gray-300 italic">"De mistachtige klanken helpen mijn race-gedachten te kalmeren. Ik val sneller en dieper in slaap dan ooit tevoren."</p>
-                        <p class="mt-4 font-semibold text-purple-300">- L. Meijer</p>
+
+                    <div class="absolute top-[5%] left-[5%] w-[22%] sm:w-[18%]">
+                        <div class="parallax-card parallax-card-hidden transform -rotate-12 rounded-xl overflow-hidden shadow-2xl shadow-slate-900/50">
+                            <video autoplay loop muted playsinline class="w-full h-full object-cover"><source src="social_u4542115973_httpss.mj.run1guus5STBnY_--ar_11_--bs_1_--video_1_cf306e53-e419-4c8a-98e5-98beedecace3_0.mp4" type="video/mp4"></video>
+                        </div>
                     </div>
-                    <div class="testimonial-card">
-                        <p class="text-gray-300 italic">"Alsof mijn brein een 'reset' knop krijgt. Ik word helderder en meer uitgerust wakker. Onmisbaar geworden."</p>
-                        <p class="mt-4 font-semibold text-purple-300">- A. Janssen</p>
+                    
+                    <div class="absolute top-[2%] right-[2%] w-[28%] sm:w-[24%]">
+                        <div class="parallax-card parallax-card-hidden transform rotate-6 rounded-xl overflow-hidden shadow-2xl shadow-slate-900/50">
+                             <video autoplay loop muted playsinline class="w-full h-full object-cover"><source src="u4542115973_httpss.mj.runpplLoxcu1No_--ar_11_--bs_1_--video_1_f3e50e45-cd50-4c8d-9bcc-0dadd0130d78_0.mp4" type="video/mp4"></video>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-[50%] left-[-2%] w-[30%] sm:w-[25%]">
+                        <div class="parallax-card parallax-card-hidden transform rotate-3 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
+                            <div class="w-full h-full bg-gradient-to-br from-[#1e1b4b] to-[#4c1d95] flex flex-col items-center justify-center p-4 text-center relative">
+                                <div class="absolute inset-0 bg-black/20"></div>
+                                <div class="relative z-10">
+                                    <h3 class="font-heading text-white text-3xl sm:text-4xl">Kalmte</h3>
+                                    <p class="text-purple-300 text-sm mt-1">Voor innerlijke rust</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute hidden sm:block bottom-[5%] left-[15%] w-[18%]">
+                        <div class="parallax-card parallax-card-hidden transform -rotate-6 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
+                            <div class="w-full h-full bg-gradient-to-tl from-[#0f172a] to-[#312e81] flex flex-col items-center justify-center p-4 text-center relative">
+                                <div class="absolute inset-0 bg-black/20"></div>
+                                <div class="relative z-10">
+                                    <h3 class="font-heading text-white text-3xl sm:text-4xl">Diepe Focus</h3>
+                                    <p class="text-purple-300 text-sm mt-1">Voor concentratie</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-[-5%] left-1/2 -translate-x-1/2 w-[25%] sm:w-[20%] z-20">
+                         <div class="parallax-card parallax-card-hidden transform rotate-2 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
+                            <div class="w-full h-full bg-gradient-to-b from-[#3730a3] to-[#5b21b6] flex flex-col items-center justify-center p-4 text-center relative">
+                                <div class="absolute inset-0 bg-black/20"></div>
+                                <div class="relative z-10">
+                                    <h3 class="font-heading text-white text-3xl sm:text-4xl">Herstel</h3>
+                                    <p class="text-purple-300 text-sm mt-1">Voor lichaam en geest</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-[2%] right-[5%] w-[35%] sm:w-[28%]">
+                        <div class="parallax-card parallax-card-hidden transform -rotate-3 rounded-xl shadow-2xl shadow-slate-900/50 aspect-[2/3] overflow-hidden">
+                            <div class="w-full h-full bg-gradient-to-t from-[#1e1b4b] to-[#6d28d9] flex flex-col items-center justify-center p-4 text-center relative">
+                                <div class="absolute inset-0 bg-black/20"></div>
+                                <div class="relative z-10">
+                                    <h3 class="font-heading text-white text-3xl sm:text-4xl">Dromen</h3>
+                                    <p class="text-purple-300 text-sm mt-1">Voor levendige nachten</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 6. The Science - Apple Inspired -->
+        <!-- 6. De Architectuur van Geluid (omgedraaid) -->
         <section class="reveal reveal-up mt-28 md:mt-40">
             <div class="container mx-auto px-8 text-center">
                 <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Architectuur van Geluid</h2>
@@ -222,31 +298,53 @@
             </div>
         </section>
 
-        <!-- 7. NIEUW: De Optimale Luisterervaring -->
+        <!-- 7. Luisteraars Vertellen (omgedraaid) -->
         <section class="reveal reveal-up mt-28 md:mt-40">
             <div class="container mx-auto px-8 text-center">
-                <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Optimale Luisterervaring</h2>
-                <div class="mt-16 grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-                    <div class="text-center">
-                        <svg class="h-12 w-12 mx-auto text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-                        <h3 class="font-heading text-3xl text-white mt-6">Volledige Immersie</h3>
-                        <p class="mt-2 text-gray-400">Een goede koptelefoon is essentieel. Het levert de binaural beats direct en isoleert u van extern geluid.</p>
+                <h2 class="font-heading text-5xl md:text-6xl text-white section-title">Luisteraars Vertellen</h2>
+                <div class="mt-16 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div class="testimonial-card">
+                        <p class="text-gray-300 italic">"Voor het eerst in jaren slaap ik de hele nacht door. Deze muziek is geen achtergrondgeluid, het is een instrument voor rust."</p>
+                        <p class="mt-4 font-semibold text-purple-300">- J. de Vries</p>
                     </div>
-                    <div class="text-center">
-                        <svg class="h-12 w-12 mx-auto text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                        <h3 class="font-heading text-3xl text-white mt-6">Creëer een Heiligdom</h3>
-                        <p class="mt-2 text-gray-400">Minimaliseer licht en andere afleidingen. Maak van uw slaapkamer een toevluchtsoord voor de geest.</p>
+                    <div class="testimonial-card">
+                        <p class="text-gray-300 italic">"De mistachtige klanken helpen mijn race-gedachten te kalmeren. Ik val sneller en dieper in slaap dan ooit tevoren."</p>
+                        <p class="mt-4 font-semibold text-purple-300">- L. Meijer</p>
                     </div>
-                    <div class="text-center">
-                        <svg class="h-12 w-12 mx-auto text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path></svg>
-                        <h3 class="font-heading text-3xl text-white mt-6">Geef u Over</h3>
-                        <p class="mt-2 text-gray-400">Observeer de klanken zonder te analyseren. Uw enige taak is ademen en het geluid zijn werk laten doen.</p>
+                    <div class="testimonial-card">
+                        <p class="text-gray-300 italic">"Alsof mijn brein een 'reset' knop krijgt. Ik word helderder en meer uitgerust wakker. Onmisbaar geworden."</p>
+                        <p class="mt-4 font-semibold text-purple-300">- A. Janssen</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 8. VERVANGEN: De Sonische Reis -->
+        <section class="reveal reveal-up mt-28 md:mt-40">
+            <div class="container mx-auto px-8 text-center">
+                <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Sonische Reis</h2>
+                <p class="mt-6 text-lg text-gray-400 max-w-3xl mx-auto">Elke track is een zorgvuldig ontworpen reis om de geest van ruis naar rust te begeleiden.</p>
+                <div class="mt-16 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div class="testimonial-card text-left">
+                        <p class="text-purple-300 font-bold tracking-widest">STAP 01</p>
+                        <h3 class="font-heading text-3xl text-white mt-2">Ontkoppeling</h3>
+                        <p class="mt-4 text-gray-400">De eerste klanklagen zijn ontworpen om de geest los te maken van de dagelijkse stress en de stroom van gedachten te vertragen.</p>
+                    </div>
+                    <div class="testimonial-card text-left">
+                        <p class="text-purple-300 font-bold tracking-widest">STAP 02</p>
+                        <h3 class="font-heading text-3xl text-white mt-2">Synchronisatie</h3>
+                        <p class="mt-4 text-gray-400">Specifieke frequenties en ritmes nodigen de hersengolven uit om te synchroniseren, en begeleiden u naar een diepere, meditatieve staat.</p>
+                    </div>
+                    <div class="testimonial-card text-left">
+                        <p class="text-purple-300 font-bold tracking-widest">STAP 03</p>
+                        <h3 class="font-heading text-3xl text-white mt-2">Immersie</h3>
+                        <p class="mt-4 text-gray-400">Naarmate de track vordert, creëren de gelaagde soundscapes een volledige onderdompeling, de poort naar herstellende slaap.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 8. The Architect -->
+        <!-- 9. The Architect -->
         <section class="reveal reveal-up mt-28 md:mt-40 text-center">
              <div class="container mx-auto px-8">
                 <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Architect</h2>
@@ -258,7 +356,7 @@
              </div>
         </section>
 
-        <!-- 9. Join the Silence -->
+        <!-- 10. Join the Silence -->
         <section class="reveal reveal-up mt-28 md:mt-40">
             <div class="container mx-auto px-8">
                 <div class="bg-gradient-to-br from-purple-900/50 to-indigo-900/50 rounded-2xl p-8 md:p-12 text-center max-w-3xl mx-auto">
@@ -272,7 +370,7 @@
             </div>
         </section>
 
-        <!-- 10. Footer -->
+        <!-- 11. Footer -->
         <footer class="text-center py-16 border-t border-purple-900/20 mt-28 md:mt-40">
             <a href="https://open.spotify.com/" target="_blank" class="inline-block mb-8 text-gray-400 hover:text-white transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
@@ -283,7 +381,7 @@
         </footer>
     </main>
 
-<script>
+    <script>
     // Intersection Observer for reveal animations
     const revealElements = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
@@ -292,7 +390,7 @@
                 entry.target.classList.add('visible');
             }
         });
-    }, { threshold: 0.15 }); // Iets hogere threshold voor betere timing
+    }, { threshold: 0.15 });
     revealElements.forEach(el => {
         // Voeg basis animatie class toe
         if(!el.classList.contains('reveal-left') && !el.classList.contains('reveal-right') && !el.classList.contains('reveal-zoom')) {
@@ -354,10 +452,31 @@
     
     document.addEventListener('DOMContentLoaded', () => {
         initHeroCanvas();
+
+        // --- Logic voor de Parallax Sectie ---
+        const playlistsSection = document.getElementById('playlists-section');
+        if (playlistsSection) {
+            const parallaxCards = playlistsSection.querySelectorAll('.parallax-card');
+
+            // 1. Initial Fade-in Animatie
+            const parallaxObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        parallaxCards.forEach((card, index) => {
+                            const delay = index * 100;
+                            setTimeout(() => {
+                                card.classList.add('parallax-card-animated');
+                                card.classList.remove('parallax-card-hidden');
+                            }, delay);
+                        });
+                        observer.unobserve(playlistsSection);
+                    }
+                });
+            }, { threshold: 0.2 });
+            parallaxObserver.observe(playlistsSection);
+        }
     });
 </script>
 </body>
 </html>
-
-
 
