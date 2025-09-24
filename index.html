@@ -46,7 +46,7 @@
             background-color: #7c3aed;
         }
 
-        /* --- Nieuwe Scroll Animaties --- */
+        /* --- Scroll Animaties --- */
         .reveal {
             opacity: 0;
             transition: opacity 1.2s, transform 1.2s;
@@ -72,21 +72,6 @@
             opacity: 0.5;
         }
 
-        .spotify-play-btn {
-            background-color: #1DB954; /* Spotify Green */
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s ease;
-            flex-shrink: 0;
-        }
-        .spotify-play-btn:hover {
-            transform: scale(1.1);
-        }
-
         .album-card {
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
@@ -95,7 +80,7 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
         
-        .testimonial-card {
+        .info-card {
             background: linear-gradient(145deg, rgba(20, 9, 36, 0.2), rgba(10, 3, 20, 0.2));
             backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
             border: 1px solid rgba(167, 139, 250, 0.1);
@@ -103,24 +88,60 @@
             border-radius: 1rem;
         }
 
-        /* --- CSS voor de Parallax Sectie --- */
+        /* --- CSS voor Playlist Sectie --- */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(50px) scale(0.95); /* Meer uitgesproken animatie */
+                transform: translateY(50px) scale(0.95);
             }
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
         }
-        .parallax-card-hidden {
+        .playlist-card-hidden {
             opacity: 0;
-            transform: translateY(50px) scale(0.95); /* Meer uitgesproken animatie */
+            transform: translateY(50px) scale(0.95);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
-        .parallax-card-animated {
+        .playlist-card-animated {
             animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        /* --- CSS voor Testimonial Marquee --- */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-content {
+            animation: marquee 40s linear infinite;
+        }
+
+        /* --- CSS voor Sonische Reis Tijdlijn --- */
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2.5rem;
+            padding-left: 2.5rem;
+        }
+        .timeline-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            bottom: -10px;
+            width: 2px;
+            background-color: rgba(167, 139, 250, 0.2);
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--color-background);
+            border: 3px solid var(--color-primary);
         }
     </style>
 </head>
@@ -142,9 +163,7 @@
             <source src="u4542115973_Serene_Aether_a_unique_music_artist_who_creates_c_2f54d571-2604-4f39-9e53-1463102d2657_0.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <div class="absolute inset-0 bg-black/70"></div> <!-- Iets donkerder overlay voor betere leesbaarheid -->
-        
-        <!-- Aangepaste Tekst Overlay -->
+        <div class="absolute inset-0 bg-black/70"></div>
         <div class="relative z-10 reveal reveal-up max-w-xl">
             <p class="text-lg md:text-xl text-purple-300 tracking-widest">EEN SONISCHE ERVARING</p>
             <h2 class="font-heading text-5xl md:text-7xl text-white mt-4">Gemaakt voor de Nacht. <br>Exclusief hier te ervaren.</h2>
@@ -201,7 +220,6 @@
         <section id="playlists-section" class="w-full py-20 md:py-32 overflow-hidden mt-28 md:mt-40">
             <div class="container mx-auto px-4">
                 <div class="relative w-full max-w-6xl mx-auto h-[600px] sm:h-[700px] md:h-[650px]">
-                    
                     <div class="absolute inset-0 flex items-center justify-center z-10">
                         <div class="text-center">
                             <p class="text-lg md:text-xl text-purple-300">Playlists voor Slaap & Focus</p>
@@ -210,9 +228,8 @@
                             </h2>
                         </div>
                     </div>
-
                     <div class="absolute top-[5%] left-[5%] w-[22%] sm:w-[18%]">
-                        <div class="parallax-card parallax-card-hidden transform -rotate-12 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
+                        <div class="playlist-card-hidden transform -rotate-12 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
                            <div class="w-full h-full bg-gradient-to-br from-[#0c0a37] to-[#581c87] flex flex-col items-center justify-center p-4 text-center relative">
                                 <div class="absolute inset-0 bg-black/20"></div>
                                 <div class="relative z-10">
@@ -222,9 +239,8 @@
                             </div>
                         </div>
                     </div>
-                    
                     <div class="absolute top-[2%] right-[2%] w-[28%] sm:w-[24%]">
-                        <div class="parallax-card parallax-card-hidden transform rotate-6 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
+                        <div class="playlist-card-hidden transform rotate-6 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
                              <div class="w-full h-full bg-gradient-to-tl from-[#182346] to-[#4338ca] flex flex-col items-center justify-center p-4 text-center relative">
                                 <div class="absolute inset-0 bg-black/20"></div>
                                 <div class="relative z-10">
@@ -234,9 +250,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="absolute top-[50%] left-[-2%] w-[30%] sm:w-[25%]">
-                        <div class="parallax-card parallax-card-hidden transform rotate-3 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
+                        <div class="playlist-card-hidden transform rotate-3 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
                             <div class="w-full h-full bg-gradient-to-br from-[#1e1b4b] to-[#4c1d95] flex flex-col items-center justify-center p-4 text-center relative">
                                 <div class="absolute inset-0 bg-black/20"></div>
                                 <div class="relative z-10">
@@ -246,9 +261,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="absolute hidden sm:block bottom-[5%] left-[15%] w-[18%]">
-                        <div class="parallax-card parallax-card-hidden transform -rotate-6 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
+                        <div class="playlist-card-hidden transform -rotate-6 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
                             <div class="w-full h-full bg-gradient-to-tl from-[#0f172a] to-[#312e81] flex flex-col items-center justify-center p-4 text-center relative">
                                 <div class="absolute inset-0 bg-black/20"></div>
                                 <div class="relative z-10">
@@ -258,9 +272,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="absolute bottom-[-5%] left-1/2 -translate-x-1/2 w-[25%] sm:w-[20%] z-20">
-                         <div class="parallax-card parallax-card-hidden transform rotate-2 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
+                         <div class="playlist-card-hidden transform rotate-2 rounded-xl shadow-2xl shadow-slate-900/50 aspect-square overflow-hidden">
                             <div class="w-full h-full bg-gradient-to-b from-[#3730a3] to-[#5b21b6] flex flex-col items-center justify-center p-4 text-center relative">
                                 <div class="absolute inset-0 bg-black/20"></div>
                                 <div class="relative z-10">
@@ -270,9 +283,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="absolute bottom-[2%] right-[5%] w-[35%] sm:w-[28%]">
-                        <div class="parallax-card parallax-card-hidden transform -rotate-3 rounded-xl shadow-2xl shadow-slate-900/50 aspect-[2/3] overflow-hidden">
+                        <div class="playlist-card-hidden transform -rotate-3 rounded-xl shadow-2xl shadow-slate-900/50 aspect-[2/3] overflow-hidden">
                             <div class="w-full h-full bg-gradient-to-t from-[#1e1b4b] to-[#6d28d9] flex flex-col items-center justify-center p-4 text-center relative">
                                 <div class="absolute inset-0 bg-black/20"></div>
                                 <div class="relative z-10">
@@ -286,68 +298,90 @@
             </div>
         </section>
 
-        <!-- 6. De Architectuur van Geluid (omgedraaid) -->
+        <!-- 6. VERNIEUWD: De Architectuur van Geluid -->
         <section class="reveal reveal-up mt-28 md:mt-40">
             <div class="container mx-auto px-8 text-center">
                 <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Architectuur van Geluid</h2>
-                <div class="mt-16 grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-                    <div class="text-center">
-                         <svg class="h-12 w-12 mx-auto text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V4m0 16v-2M8 8l-2-2m10 0l2-2m-2 10l2 2m-10 0l-2 2"></path></svg>
-                        <h3 class="font-heading text-3xl text-white mt-6">Aarden & Verankeren</h3>
+                <div class="mt-16 grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
+                    <div class="info-card">
+                        <svg class="h-10 w-10 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V4m0 16v-2M8 8l-2-2m10 0l2-2m-2 10l2 2m-10 0l-2 2"></path></svg>
+                        <h3 class="font-heading text-3xl text-white mt-4">Aarden & Verankeren</h3>
                         <p class="mt-2 text-gray-400">Diepe sub-bas frequenties synchroniseren met het lichaam voor een diep gevoel van rust en stabiliteit.</p>
                     </div>
-                    <div class="text-center">
-                        <svg class="h-12 w-12 mx-auto text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 6l12-3"></path></svg>
-                        <h3 class="font-heading text-3xl text-white mt-6">Geest Synchroniseren</h3>
+                    <div class="info-card lg:mt-16">
+                        <svg class="h-10 w-10 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 6l12-3"></path></svg>
+                        <h3 class="font-heading text-3xl text-white mt-4">Geest Synchroniseren</h3>
                         <p class="mt-2 text-gray-400">Binaural beats begeleiden de hersengolven zachtjes naar de herstellende Delta-slaapfase.</p>
                     </div>
-                    <div class="text-center">
-                        <svg class="h-12 w-12 mx-auto text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                        <h3 class="font-heading text-3xl text-white mt-6">Emotie Harmoniseren</h3>
+                    <div class="info-card">
+                        <svg class="h-10 w-10 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        <h3 class="font-heading text-3xl text-white mt-4">Emotie Harmoniseren</h3>
                         <p class="mt-2 text-gray-400">Een stemming op 432Hz, consistent met natuurlijke patronen, vermindert angst en bevordert balans.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 7. Luisteraars Vertellen (omgedraaid) -->
-        <section class="reveal reveal-up mt-28 md:mt-40">
-            <div class="container mx-auto px-8 text-center">
-                <h2 class="font-heading text-5xl md:text-6xl text-white section-title">Luisteraars Vertellen</h2>
-                <div class="mt-16 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <div class="testimonial-card">
-                        <p class="text-gray-300 italic">"Voor het eerst in jaren slaap ik de hele nacht door. Deze muziek is geen achtergrondgeluid, het is een instrument voor rust."</p>
+        <!-- 7. VERNIEUWD: Luisteraars Vertellen -->
+        <section class="mt-28 md:mt-40 overflow-hidden py-16">
+            <div class="w-full inline-flex flex-nowrap">
+                <div class="marquee-content flex items-center justify-start">
+                    <div class="info-card mx-4 w-80 md:w-96 flex-shrink-0">
+                        <p class="text-gray-300 italic">"Voor het eerst in jaren slaap ik de hele nacht door. Dit is een instrument voor rust."</p>
                         <p class="mt-4 font-semibold text-purple-300">- J. de Vries</p>
                     </div>
-                    <div class="testimonial-card">
-                        <p class="text-gray-300 italic">"De mistachtige klanken helpen mijn race-gedachten te kalmeren. Ik val sneller en dieper in slaap dan ooit tevoren."</p>
+                    <div class="info-card mx-4 w-80 md:w-96 flex-shrink-0">
+                        <p class="text-gray-300 italic">"De mistachtige klanken helpen mijn race-gedachten te kalmeren. Ik val sneller en dieper in slaap."</p>
                         <p class="mt-4 font-semibold text-purple-300">- L. Meijer</p>
                     </div>
-                    <div class="testimonial-card">
-                        <p class="text-gray-300 italic">"Alsof mijn brein een 'reset' knop krijgt. Ik word helderder en meer uitgerust wakker. Onmisbaar geworden."</p>
+                    <div class="info-card mx-4 w-80 md:w-96 flex-shrink-0">
+                        <p class="text-gray-300 italic">"Alsof mijn brein een 'reset' knop krijgt. Ik word helderder en meer uitgerust wakker. Onmisbaar."</p>
                         <p class="mt-4 font-semibold text-purple-300">- A. Janssen</p>
+                    </div>
+                     <div class="info-card mx-4 w-80 md:w-96 flex-shrink-0">
+                        <p class="text-gray-300 italic">"De perfecte soundtrack voor mijn avondmeditatie. Het brengt me direct in een diepe staat van ontspanning."</p>
+                        <p class="mt-4 font-semibold text-purple-300">- S. El Amrani</p>
+                    </div>
+                    <!-- Duplicate for infinite scroll -->
+                    <div class="info-card mx-4 w-80 md:w-96 flex-shrink-0">
+                        <p class="text-gray-300 italic">"Voor het eerst in jaren slaap ik de hele nacht door. Dit is een instrument voor rust."</p>
+                        <p class="mt-4 font-semibold text-purple-300">- J. de Vries</p>
+                    </div>
+                    <div class="info-card mx-4 w-80 md:w-96 flex-shrink-0">
+                        <p class="text-gray-300 italic">"De mistachtige klanken helpen mijn race-gedachten te kalmeren. Ik val sneller en dieper in slaap."</p>
+                        <p class="mt-4 font-semibold text-purple-300">- L. Meijer</p>
+                    </div>
+                    <div class="info-card mx-4 w-80 md:w-96 flex-shrink-0">
+                        <p class="text-gray-300 italic">"Alsof mijn brein een 'reset' knop krijgt. Ik word helderder en meer uitgerust wakker. Onmisbaar."</p>
+                        <p class="mt-4 font-semibold text-purple-300">- A. Janssen</p>
+                    </div>
+                     <div class="info-card mx-4 w-80 md:w-96 flex-shrink-0">
+                        <p class="text-gray-300 italic">"De perfecte soundtrack voor mijn avondmeditatie. Het brengt me direct in een diepe staat van ontspanning."</p>
+                        <p class="mt-4 font-semibold text-purple-300">- S. El Amrani</p>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- 8. VERVANGEN: De Sonische Reis -->
+        <!-- 8. VERNIEUWD: De Sonische Reis -->
         <section class="reveal reveal-up mt-28 md:mt-40">
-            <div class="container mx-auto px-8 text-center">
-                <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Sonische Reis</h2>
-                <p class="mt-6 text-lg text-gray-400 max-w-3xl mx-auto">Elke track is een zorgvuldig ontworpen reis om de geest van ruis naar rust te begeleiden.</p>
-                <div class="mt-16 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <div class="testimonial-card text-left">
+            <div class="container mx-auto px-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Sonische Reis</h2>
+                    <p class="mt-6 text-lg text-gray-400 max-w-3xl mx-auto">Elke track is een zorgvuldig ontworpen reis om de geest van ruis naar rust te begeleiden.</p>
+                </div>
+                <div class="max-w-xl mx-auto">
+                    <div class="timeline-item">
                         <p class="text-purple-300 font-bold tracking-widest">STAP 01</p>
                         <h3 class="font-heading text-3xl text-white mt-2">Ontkoppeling</h3>
                         <p class="mt-4 text-gray-400">De eerste klanklagen zijn ontworpen om de geest los te maken van de dagelijkse stress en de stroom van gedachten te vertragen.</p>
                     </div>
-                    <div class="testimonial-card text-left">
+                    <div class="timeline-item">
                         <p class="text-purple-300 font-bold tracking-widest">STAP 02</p>
                         <h3 class="font-heading text-3xl text-white mt-2">Synchronisatie</h3>
                         <p class="mt-4 text-gray-400">Specifieke frequenties en ritmes nodigen de hersengolven uit om te synchroniseren, en begeleiden u naar een diepere, meditatieve staat.</p>
                     </div>
-                    <div class="testimonial-card text-left">
+                    <div class="timeline-item">
                         <p class="text-purple-300 font-bold tracking-widest">STAP 03</p>
                         <h3 class="font-heading text-3xl text-white mt-2">Immersie</h3>
                         <p class="mt-4 text-gray-400">Naarmate de track vordert, creëren de gelaagde soundscapes een volledige onderdompeling, de poort naar herstellende slaap.</p>
@@ -356,15 +390,22 @@
             </div>
         </section>
 
-        <!-- 9. The Architect -->
-        <section class="reveal reveal-up mt-28 md:mt-40 text-center">
+        <!-- 9. VERNIEUWD: The Architect -->
+        <section class="reveal reveal-up mt-28 md:mt-40">
              <div class="container mx-auto px-8">
-                <h2 class="font-heading text-5xl md:text-6xl text-white section-title">De Architect</h2>
-                 <div class="mt-16 max-w-4xl mx-auto">
-                    <p class="text-gray-300 text-lg leading-relaxed">
-                        Serene Aether is de anonieme architect achter deze sonische structuren. Gedreven door de overtuiging dat onze interne wereld net zo zorgvuldig ontworpen kan worden als onze externe, combineert Aether een diepe kennis van psychoakoestiek met een minimalistische esthetiek. Het doel: functionele kunst creëren die dient als een toevluchtsoord in een wereld van ruis.
-                    </p>
-                 </div>
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+                    <div class="aspect-square rounded-2xl bg-gradient-to-br from-purple-900/50 to-indigo-900/50 flex items-center justify-center p-8">
+                        <!-- Abstracte visuele representatie -->
+                        <div class="w-2/3 h-2/3 border-2 border-purple-400/50 rounded-full animate-pulse"></div>
+                    </div>
+                    <div>
+                         <h2 class="font-heading text-5xl md:text-6xl text-white">De Architect</h2>
+                        <div class="w-16 h-1 bg-primary mt-4 mb-6 bg-purple-500"></div>
+                        <p class="text-gray-300 text-lg leading-relaxed">
+                            Serene Aether is de anonieme architect achter deze sonische structuren. Gedreven door de overtuiging dat onze interne wereld net zo zorgvuldig ontworpen kan worden als onze externe, combineert Aether een diepe kennis van psychoakoestiek met een minimalistische esthetiek. Het doel: functionele kunst creëren die dient als een toevluchtsoord in een wereld van ruis.
+                        </p>
+                    </div>
+                </div>
              </div>
         </section>
 
@@ -404,7 +445,6 @@
         });
     }, { threshold: 0.15 });
     revealElements.forEach(el => {
-        // Voeg basis animatie class toe
         if(!el.classList.contains('reveal-left') && !el.classList.contains('reveal-right') && !el.classList.contains('reveal-zoom')) {
             el.classList.add('reveal-up');
         }
@@ -452,7 +492,6 @@
         function animate() {
             const elapsedTime = clock.getElapsedTime();
             
-            // Subtle rotation, niet meer afhankelijk van muis
             particlesMesh.rotation.y = -.03 * elapsedTime;
             particlesMesh.rotation.x = -.01 * elapsedTime;
 
@@ -465,27 +504,25 @@
     document.addEventListener('DOMContentLoaded', () => {
         initHeroCanvas();
 
-        // --- Logic voor de Parallax Sectie ---
         const playlistsSection = document.getElementById('playlists-section');
         if (playlistsSection) {
-            const parallaxCards = playlistsSection.querySelectorAll('.parallax-card');
+            const playlistCards = playlistsSection.querySelectorAll('.playlist-card-hidden');
 
-            // 1. Initial Fade-in Animatie
-            const parallaxObserver = new IntersectionObserver((entries, observer) => {
+            const playlistObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        parallaxCards.forEach((card, index) => {
+                        playlistCards.forEach((card, index) => {
                             const delay = index * 100;
                             setTimeout(() => {
-                                card.classList.add('parallax-card-animated');
-                                card.classList.remove('parallax-card-hidden');
+                                card.classList.add('playlist-card-animated');
+                                card.classList.remove('playlist-card-hidden');
                             }, delay);
                         });
                         observer.unobserve(playlistsSection);
                     }
                 });
             }, { threshold: 0.2 });
-            parallaxObserver.observe(playlistsSection);
+            playlistObserver.observe(playlistsSection);
         }
     });
 </script>
